@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест по географии 6 класс: Гидросфера (§29–36)</title>
+    <style>
+        :root {
+            --primary: #1e88e5;
+            --primary-dark: #1565c0;
+            --bg: #f0f7ff;
+            --card: #ffffff;
+            --text: #1a237e;
+            --muted: #546e7a;
+            --correct: #2e7d32;
+            --wrong: #c62828;
+            --border: #bbdefb;
+            --shadow: 0 8px 24px rgba(13, 71, 161, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at 20% 10%, #e3f2fd 0%, #f0f7ff 45%, #ffffff 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 32px 16px;
+            line-height: 1.5;
+        }
+
+        .wrap {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 28px 24px;
+        }
+
+        .question {
+            padding: 22px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question:first-child {
+            padding-top: 0;
+        }
+
+        .question:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .q-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .q-num {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            background: #fafcff;
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: #e3f2fd;
+        }
+
+        .option input {
+            display: none;
+        }
+
+        .option .dot {
+            flex: 0 0 auto;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #90caf9;
+            border-radius: 50%;
+            margin-top: 1px;
+            display: grid;
+            place-items: center;
+            transition: border-color 0.2s;
+        }
+
+        .option .dot::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            transform: scale(0);
+            transition: transform 0.15s ease;
+        }
+
+        .option input:checked + .dot {
+            border-color: var(--primary);
+        }
+
+        .option input:checked + .dot::after {
+            transform: scale(1);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: #e3f2fd;
+        }
+
+        .option.correct {
+            border-color: var(--correct);
+            background: #e8f5e9;
+        }
+
+        .option.correct .dot {
+            border-color: var(--correct);
+        }
+
+        .option.correct .dot::after {
+            background: var(--correct);
+        }
+
+        .option.wrong {
+            border-color: var(--wrong);
+            background: #ffebee;
+        }
+
+        .option.wrong .dot {
+            border-color: var(--wrong);
+        }
+
+        .option.wrong .dot::after {
+            background: var(--wrong);
+        }
+
+        .actions {
+            margin-top: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 860px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-check {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 6px 16px rgba(30, 136, 229, 0.35);
+            flex: 1 1 220px;
+        }
+
+        .btn-check:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-reset {
+            background: transparent;
+            color: var(--muted);
+            border: 2px solid var(--border);
+            flex: 0 0 auto;
+        }
+
+        .btn-reset:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        #result {
+            margin-top: 24px;
+            padding: 24px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #e3f2fd, #f0f7ff);
+            border: 2px solid var(--primary);
+            display: none;
+        }
+
+        #result.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-score {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            line-height: 1;
+        }
+
+        .result-grade {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .result-detail {
+            color: var(--muted);
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        .grade-5 { color: #2e7d32; }
+        .grade-4 { color: #1565c0; }
+        .grade-3 { color: #ef6c00; }
+        .grade-2 { color: #c62828; }
+
+        .feedback {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        @media (max-width: 480px) {
+            .card { padding: 20px 16px; }
+            .option { padding: 10px 12px; }
+            button { padding: 12px 20px; font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <div class="badge">География · 6 класс</div>
+        <h1>Гидросфера Земли</h1>
+        <p class="subtitle">Расширенный тест по параграфам 29–36</p>
+    </header>
+
+    <div class="card" id="quiz">
+        <!-- Вопросы вставляются сюда -->
+    </div>
+</div>
+
+<div class="actions">
+    <button class="btn-check" id="checkBtn">Проверить результат</button>
+    <button class="btn-reset" id="resetBtn">Сбросить</button>
+</div>
+
+<div class="wrap">
+    <div id="result">
+        <div class="result-score" id="scoreText">0 / 30</div>
+        <div class="result-grade" id="gradeText"></div>
+        <div class="result-detail" id="detailText"></div>
+        <div class="feedback" id="feedbackText"></div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            q: "Что такое гидросфера?",
+            options: [
+                "Водная оболочка Земли",
+                "Твёрдая оболочка Земли",
+                "Воздушная оболочка Земли",
+                "Оболочка, населённая живыми организмами"
+            ],
+            correct: 0
+        },
+        {
+            q: "Какая часть гидросферы приходится на воды Мирового океана?",
+            options: [
+                "Менее 3 %",
+                "Около 25 %",
+                "Около 50 %",
+                "Более 96 %"
+            ],
+            correct: 3
+        },
+        {
+            q: "Что является начальным звеном мирового круговорота воды?",
+            options: [
+                "Выпадение осадков на сушу",
+                "Испарение воды с поверхности Океана",
+                "Таяние ледников",
+                "Сток речных вод"
+            ],
+            correct: 1
+        },
+        {
+            q: "Благодаря какому свойству воды в природе возможен круговорот?",
+            options: [
+                "Способности растворять соли",
+                "Способности переходить из одного агрегатного состояния в другое",
+                "Способности нагреваться",
+                "Прозрачности"
+            ],
+            correct: 1
+        },
+        {
+            q: "Сколько океанов выделяют на Земле?",
+            options: [
+                "Три",
+                "Четыре",
+                "Пять",
+                "Шесть"
+            ],
+            correct: 1
+        },
+        {
+            q: "Какой океан является самым большим и глубоким?",
+            options: [
+                "Атлантический",
+                "Индийский",
+                "Тихий",
+                "Северный Ледовитый"
+            ],
+            correct: 2
+        },
+        {
+            q: "Что такое море?",
+            options: [
+                "Часть Океана, более или менее отделённая от него участками суши или подводными поднятиями дна",
+                "Узкое водное пространство между материками",
+                "Часть Океана, вдающаяся в сушу, но имеющая свободный обмен воды",
+                "Водный поток с постоянным течением"
+            ],
+            correct: 0
+        },
+        {
+            q: "Что такое архипелаг?",
+            options: [
+                "Одиночный остров",
+                "Группа островов",
+                "Полуостров",
+                "Часть океана"
+            ],
+            correct: 1
+        },
+        {
+            q: "В чём измеряется солёность воды?",
+            options: [
+                "В процентах (%)",
+                "В промилле (‰)",
+                "В граммах на литр (г/л)",
+                "В градусах"
+            ],
+            correct: 1
+        },
+        {
+            q: "Какая средняя солёность вод Мирового океана?",
+            options: [
+                "10 ‰",
+                "20 ‰",
+                "35 ‰",
+                "42 ‰"
+            ],
+            correct: 2
+        },
+        {
+            q: "Самое солёное море на Земле — это…",
+            options: [
+                "Балтийское",
+                "Чёрное",
+                "Красное",
+                "Средиземное"
+            ],
+            correct: 2
+        },
+        {
+            q: "Какие волны возникают под действием ветра?",
+            options: [
+                "Цунами",
+                "Приливы",
+                "Ветровые волны",
+                "Течения"
+            ],
+            correct: 2
+        },
+        {
+            q: "Что является причиной образования цунами?",
+            options: [
+                "Постоянные ветры",
+                "Притяжение Луны",
+                "Подводные землетрясения и извержения вулканов",
+                "Разница в солёности воды"
+            ],
+            correct: 2
+        },
+        {
+            q: "Как называются периодические поднятия и опускания уровня воды в Океане?",
+            options: [
+                "Волны",
+                "Течения",
+                "Приливы и отливы",
+                "Цунами"
+            ],
+            correct: 2
+        },
+        {
+            q: "Что такое речная система?",
+            options: [
+                "Русло реки с излучинами",
+                "Главная река со всеми притоками",
+                "Участок от истока до устья",
+                "Граница между бассейнами"
+            ],
+            correct: 1
+        },
+        {
+            q: "Место, где река берёт начало, называется…",
+            options: [
+                "Устьем",
+                "Истоком",
+                "Руслом",
+                "Поймой"
+            ],
+            correct: 1
+        },
+        {
+            q: "Место впадения реки в море, озеро или другую реку называется…",
+            options: [
+                "Истоком",
+                "Устьем",
+                "Водоразделом",
+                "Бассейном"
+            ],
+            correct: 1
+        },
+        {
+            q: "Площадь суши, с которой река собирает воду, называется…",
+            options: [
+                "Речной долиной",
+                "Речным бассейном",
+                "Водоразделом",
+                "Поймой"
+            ],
+            correct: 1
+        },
+        {
+            q: "Как называется продолжительный подъём уровня воды в реке весной?",
+            options: [
+                "Межень",
+                "Паводок",
+                "Половодье",
+                "Наводнение"
+            ],
+            correct: 2
+        },
+        {
+            q: "Что такое озеро?",
+            options: [
+                "Водный поток с постоянным течением",
+                "Водоём в природном углублении со стоячей или слабопроточной водой",
+                "Часть моря, вдающаяся в сушу",
+                "Узкое водное пространство между материками"
+            ],
+            correct: 1
+        },
+        {
+            q: "Как называются углубления на суше, в которых скапливается вода и образуются озёра?",
+            options: [
+                "Речными долинами",
+                "Озёрными котловинами",
+                "Водохранилищами",
+                "Болотами"
+            ],
+            correct: 1
+        },
+        {
+            q: "Какое происхождение имеет озёрная котловина Байкала?",
+            options: [
+                "Ледниковое",
+                "Вулканическое",
+                "Тектоническое (в разломе земной коры)",
+                "Запрудное"
+            ],
+            correct: 2
+        },
+        {
+            q: "Самое глубокое озеро мира — это…",
+            options: [
+                "Каспийское",
+                "Байкал",
+                "Танганьика",
+                "Виктория"
+            ],
+            correct: 1
+        },
+        {
+            q: "Какое озеро является крупнейшим по площади?",
+            options: [
+                "Байкал",
+                "Верхнее",
+                "Каспийское",
+                "Виктория"
+            ],
+            correct: 2
+        },
+        {
+            q: "Как образуются болота?",
+            options: [
+                "В результате извержений вулканов",
+                "При зарастании озёр и в условиях избыточного увлажнения",
+                "При таянии ледников",
+                "В результате землетрясений"
+            ],
+            correct: 1
+        },
+        {
+            q: "Какие подземные воды залегают на первом от поверхности водоупорном слое?",
+            options: [
+                "Межпластовые",
+                "Артезианские",
+                "Грунтовые",
+                "Минеральные"
+            ],
+            correct: 2
+        },
+        {
+            q: "Как называются подземные воды, заключённые между двумя водоупорными слоями и находящиеся под давлением?",
+            options: [
+                "Грунтовые",
+                "Почвенные",
+                "Артезианские",
+                "Родники"
+            ],
+            correct: 2
+        },
+        {
+            q: "Что такое ледник?",
+            options: [
+                "Скопление льда на поверхности воды",
+                "Многолетнее скопление льда на суше, обладающее способностью к движению",
+                "Заледеневшая река",
+                "Слой вечной мерзлоты"
+            ],
+            correct: 1
+        },
+        {
+            q: "Какой ледник занимает наибольшую площадь на Земле?",
+            options: [
+                "Горный ледник в Гималаях",
+                "Покровный ледник Антарктиды",
+                "Ледник Гренландии",
+                "Ледник на Аляске"
+            ],
+            correct: 1
+        },
+        {
+            q: "Какое значение имеет гидросфера для человека?",
+            options: [
+                "Только как источник питьевой воды",
+                "Только как транспортные пути",
+                "Это источник воды, ресурсов, транспортные пути и среда обитания",
+                "Только как объект для отдыха"
+            ],
+            correct: 2
+        }
+    ];
+
+    const quizEl = document.getElementById('quiz');
+    const checkBtn = document.getElementById('checkBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const resultEl = document.getElementById('result');
+    const scoreText = document.getElementById('scoreText');
+    const gradeText = document.getElementById('gradeText');
+    const detailText = document.getElementById('detailText');
+    const feedbackText = document.getElementById('feedbackText');
+
+    function render() {
+        quizEl.innerHTML = questions.map((item, index) => `
+            <div class="question" data-q="${index}">
+                <div class="q-title">
+                    <span class="q-num">${index + 1}</span>
+                    <span>${item.q}</span>
+                </div>
+                <div class="options">
+                    ${item.options.map((opt, optIndex) => `
+                        <label class="option" data-opt="${optIndex}">
+                            <input type="radio" name="q${index}" value="${optIndex}">
+                            <span class="dot"></span>
+                            <span>${opt}</span>
+                        </label>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+
+        quizEl.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const questionDiv = e.target.closest('.question');
+                questionDiv.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                e.target.closest('.option').classList.add('selected');
+            });
+        });
+    }
+
+    function check() {
+        let score = 0;
+
+        questions.forEach((item, index) => {
+            const questionDiv = quizEl.querySelector(`.question[data-q="${index}"]`);
+            const options = questionDiv.querySelectorAll('.option');
+            const selected = questionDiv.querySelector('input[type="radio"]:checked');
+
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+            });
+
+            if (!selected) return;
+
+            const selectedValue = Number(selected.value);
+            options.forEach((opt, optIndex) => {
+                if (optIndex === item.correct) {
+                    opt.classList.add('correct');
+                } else if (optIndex === selectedValue) {
+                    opt.classList.add('wrong');
+                }
+            });
+
+            if (selectedValue === item.correct) {
+                score++;
+            }
+        });
+
+        const total = questions.length;
+        const percent = Math.round((score / total) * 100);
+        let grade = '2';
+        let gradeLabel = 'Недостаточно';
+        let gradeClass = 'grade-2';
+        let feedback = 'Повторите материал параграфов 29–36 и попробуйте снова.';
+
+        if (percent >= 85) {
+            grade = '5';
+            gradeLabel = 'Отлично';
+            gradeClass = 'grade-5';
+            feedback = 'Вы прекрасно разбираетесь в теме «Гидросфера»!';
+        } else if (percent >= 70) {
+            grade = '4';
+            gradeLabel = 'Хорошо';
+            gradeClass = 'grade-4';
+            feedback = 'Хороший результат. Обратите внимание на отдельные детали.';
+        } else if (percent >= 50) {
+            grade = '3';
+            gradeLabel = 'Удовлетворительно';
+            gradeClass = 'grade-3';
+            feedback = 'Основы усвоены, но стоит повторить некоторые темы.';
+        }
+
+        scoreText.textContent = `${score} / ${total}`;
+        gradeText.textContent = `Оценка: ${grade} (${gradeLabel})`;
+        gradeText.className = `result-grade ${gradeClass}`;
+        detailText.textContent = `Правильных ответов: ${score} из ${total} (${percent}%)`;
+        feedbackText.textContent = feedback;
+
+        resultEl.classList.add('show');
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function reset() {
+        quizEl.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.checked = false;
+        });
+        quizEl.querySelectorAll('.option').forEach(opt => {
+            opt.classList.remove('selected', 'correct', 'wrong');
+        });
+        resultEl.classList.remove('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    checkBtn.addEventListener('click', check);
+    resetBtn.addEventListener('click', reset);
+
+    render();
+</script>
+</body>
+</html>
